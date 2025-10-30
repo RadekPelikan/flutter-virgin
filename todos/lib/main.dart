@@ -53,6 +53,8 @@ class _MyAppState extends State<MyApp> {
   late TextEditingController
   _controller;
 
+  Color? color;
+
   @override
   void initState() {
     super.initState();
@@ -66,10 +68,28 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
+  void handleChange(String string) {
+    var text = string;
+
+    setState(() {
+      if (text.isEmpty) {
+        color = Colors.grey;
+      } else {
+        color = Colors.black;
+      }
+    });
+  }
+
   void handlePost() async {
+    var text = _controller.text;
+
+    if (text.isEmpty) {
+      return;
+    }
+
     var a = await http.post(
       Uri.parse(
-        'http://10.0.2.2:8000/todos?title=${_controller.text}',
+        'http://10.0.2.2:8000/todos?title=${text}',
       ),
     );
     Map<String, dynamic> b = jsonDecode(
@@ -113,6 +133,8 @@ class _MyAppState extends State<MyApp> {
               children: [
                 Expanded(
                   child: TextField(
+                    onChanged:
+                        handleChange,
                     controller:
                         _controller,
                     decoration: InputDecoration(
@@ -127,24 +149,27 @@ class _MyAppState extends State<MyApp> {
                   onPressed: handlePost,
                   icon: Icon(
                     Icons.send,
+                    color: color,
                   ),
                 ),
               ],
             ),
 
-            ListView.builder(
-              key: const Key(
-                'long_list',
+            Expanded(
+              child: ListView.builder(
+                key: const Key(
+                  'long_list',
+                ),
+                shrinkWrap: true,
+                itemCount: tasks.length,
+                itemBuilder:
+                    (context, index) {
+                      return Todo(
+                        task:
+                            tasks[index],
+                      );
+                    },
               ),
-              shrinkWrap: true,
-              itemCount: tasks.length,
-              itemBuilder:
-                  (context, index) {
-                    return Todo(
-                      task:
-                          tasks[index],
-                    );
-                  },
             ),
           ],
         ),
