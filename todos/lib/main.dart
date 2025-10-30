@@ -8,21 +8,18 @@ import 'package:todos/sharedState.dart';
 import 'package:todos/task.dart';
 import 'package:todos/todo.dart';
 
-Future<Map<String, Task>>
+Future<List<Task>>
 GetTodos() async {
-    var a =  await http.get(Uri.parse('https://localhost:8000/todos')) as Map<String, Task>;
-    print(a);
-    return a;
+    var a =  await http.get(Uri.parse('http://10.0.2.2:8000/todos'));
+    Map<String, dynamic> b = jsonDecode(a.body);
+    List<Task> result = b.keys.map<Task>((key) {
+      return Task(title: b[key]['title'], isCompleted: b[key]['isCompleted']);
+    }).toList();
+    return result;
 }
 
 Future<void> main() async {
-  final todos = await GetTodos();
-  List<Task> tasks = [
-  ];
-
-  todos.forEach((key, value) {
-    tasks.add(value);
-  });
+  final tasks = await GetTodos();
 
   runApp(
     SharedState(
