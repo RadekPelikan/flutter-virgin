@@ -8,14 +8,25 @@ import 'package:todos/sharedState.dart';
 import 'package:todos/task.dart';
 import 'package:todos/todo.dart';
 
-Future<List<Task>>
-GetTodos() async {
-    var a =  await http.get(Uri.parse('http://10.0.2.2:8000/todos'));
-    Map<String, dynamic> b = jsonDecode(a.body);
-    List<Task> result = b.keys.map<Task>((key) {
-      return Task(title: b[key]['title'], isCompleted: b[key]['isCompleted']);
-    }).toList();
-    return result;
+Future<List<Task>> GetTodos() async {
+  var a = await http.get(
+    Uri.parse(
+      'http://10.0.2.2:8000/todos',
+    ),
+  );
+  Map<String, dynamic> b = jsonDecode(
+    a.body,
+  );
+  List<Task> result = b.keys.map<Task>((
+    key,
+  ) {
+    return Task(
+      title: b[key]['title'],
+      isCompleted:
+          b[key]['isCompleted'],
+    );
+  }).toList();
+  return result;
 }
 
 Future<void> main() async {
@@ -39,13 +50,54 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late TextEditingController
+  _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void handlePost() async {
+    var a = await http.post(
+      Uri.parse(
+        'http://10.0.2.2:8000/todos?title=${_controller.text}',
+      ),
+    );
+    Map<String, dynamic> b = jsonDecode(
+      a.body,
+    );
+    List<Task> result = b.keys
+        .map<Task>((key) {
+          return Task(
+            title: b[key]['title'],
+            isCompleted:
+                b[key]['isCompleted'],
+          );
+        })
+        .toList();
+
+    _controller.text = "";
+    setState(() {
+      SharedState.of(context).tasks
+        ..clear()
+        ..addAll(result);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final tasks = SharedState.of(
       context,
     ).tasks;
-
-    print("AAA ${tasks.length}");
 
     return MaterialApp(
       home: Scaffold(
@@ -55,16 +107,46 @@ class _MyAppState extends State<MyApp> {
               Colors.limeAccent,
           centerTitle: true,
         ),
-        body: ListView.builder(
-          key: const Key('long_list'),
-          shrinkWrap: true,
-          itemCount: tasks.length,
-          itemBuilder:
-              (context, index) {
-                return Todo(
-                  task: tasks[index],
-                );
-              },
+        body: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller:
+                        _controller,
+                    decoration: InputDecoration(
+                      border:
+                          OutlineInputBorder(),
+                      hintText:
+                          'Enter a search term',
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: handlePost,
+                  icon: Icon(
+                    Icons.send,
+                  ),
+                ),
+              ],
+            ),
+
+            ListView.builder(
+              key: const Key(
+                'long_list',
+              ),
+              shrinkWrap: true,
+              itemCount: tasks.length,
+              itemBuilder:
+                  (context, index) {
+                    return Todo(
+                      task:
+                          tasks[index],
+                    );
+                  },
+            ),
+          ],
         ),
       ),
       debugShowCheckedModeBanner: false,
