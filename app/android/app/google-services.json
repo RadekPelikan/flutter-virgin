@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "673766268155",
+    "project_id": "fluttervirgin-f123e",
+    "storage_bucket": "fluttervirgin-f123e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673766268155:android:0f737cdd1a5e4e6d2be45e",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUcMlJnfcvYhQRzg0yKs1DIZ7nZDPRvjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673766268155:android:eda1fd59c0bf101a2be45e",
+        "android_client_info": {
+          "package_name": "nufik.net.flutter.virgin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUcMlJnfcvYhQRzg0yKs1DIZ7nZDPRvjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
