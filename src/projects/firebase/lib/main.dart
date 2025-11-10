@@ -1,14 +1,21 @@
 import 'dart:async';
 
+import 'package:app/firebase_options.dart';
+import 'package:app/services/notification_service.dart';
 import 'package:app/state/app_state.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await NotificationService.instance.initialize();
+
   final appState = AppState();
 
-  runApp(AppStateWidget(notifier: appState,
-  child: MainApp()));
+  runApp(AppStateWidget(notifier: appState, child: MainApp()));
 }
 
 class MainApp extends StatefulWidget {
@@ -19,8 +26,6 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-
-
   @override
   Widget build(BuildContext context) {
     final appState = AppStateWidget.of(context);
@@ -31,7 +36,10 @@ class _MainAppState extends State<MainApp> {
           child: Column(
             mainAxisSize: MainAxisSize.min, // shrink horizontally
             children: [
-              Text('Clicks: ${appState.count}', textScaler: TextScaler.linear(4),),
+              Text(
+                'Clicks: ${appState.count}',
+                textScaler: TextScaler.linear(4),
+              ),
               Text(
                 'Timer is ${appState.timer?.isActive == true ? "running" : "stoppped"}',
               ),
@@ -55,10 +63,7 @@ class _MainAppState extends State<MainApp> {
 }
 
 class TimerButton extends StatelessWidget {
-  const TimerButton({
-    super.key,
-  });
-
+  const TimerButton({super.key});
 
   @override
   Widget build(BuildContext context) {
