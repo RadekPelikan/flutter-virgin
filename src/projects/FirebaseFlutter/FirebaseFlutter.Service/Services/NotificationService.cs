@@ -20,8 +20,15 @@ public class NotificationService(
             },
             Token = notification.FcmToken
         };
-        
-        var result = await messaging.SendAsync(message, cancellationToken);
-        return new NewNotificationResultModel(result);
+
+        try
+        {
+            var result = await messaging.SendAsync(message, cancellationToken);
+            return new NewNotificationResultModel(result);
+        }
+        catch (FirebaseMessagingException ex)
+        {
+            return  new NewNotificationResultModel(ex.Message);
+        }
     }
 }
