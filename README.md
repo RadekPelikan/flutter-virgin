@@ -128,3 +128,5 @@ curl -X 'POST' \
 - [developer.android.com - notification channels#importance](https://developer.android.com/develop/ui/views/notifications/channels#importance)
 - [What are notification channles](https://www.howtogeek.com/715614/what-are-android-notification-channels/)
 - [medium.com - FCM with ASP.NET Core](https://cedricgabrang.medium.com/firebase-cloud-messaging-with-asp-net-core-df666291c427)
+- [React native firebase docs](https://rnfirebase.io/messaging/notifications)
+- [medium.com - Implement Push Notifications in React Native with Firebase FCM](https://medium.com/@prajapatimukesh0111/implement-push-notifications-in-react-native-with-firebase-fcm-http-v1-and-node-js-6d76922f5585)
