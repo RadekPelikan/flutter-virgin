@@ -40,10 +40,21 @@ app.MapPost("/notification", async (
         INotificationService notificationService
     ) =>
     {
-        var serviceResult = await notificationService.SendNewNotification(notification);
+        var serviceResult = await notificationService.SendNewNotificationAsync(notification);
         return Results.Ok(serviceResult);
     })
     .WithName("SendNotification") // Optional: name for Swagger
+    .WithOpenApi(); // Optional: enables Swagger documentation for this endpoint
+
+app.MapPost("/notification/topic", async (
+        NewTopicNotificationModel notification,
+        INotificationService notificationService
+    ) =>
+    {
+        var serviceResult = await notificationService.SendNewTopicNotificationAsync(notification);
+        return Results.Ok(serviceResult);
+    })
+    .WithName("SendTopicNotification") // Optional: name for Swagger
     .WithOpenApi(); // Optional: enables Swagger documentation for this endpoint
 
 app.Run();

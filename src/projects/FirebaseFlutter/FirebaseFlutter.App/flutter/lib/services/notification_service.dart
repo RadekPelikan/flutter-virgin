@@ -19,12 +19,16 @@ class NotificationService {
   static const _highImportanceChannelName = "High Importance Notifications";
   static const _notificationIcon = '@mipmap/ic_launcher';
 
+  static const _subscribedTopics = <Topic>{};
+
   Future<void> initialize() async {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessageingBackgroundHandler);
 
     await _requestPermission();
 
     await _setupMessageHandlers();
+
+    await _subsribeTopics([Topic.Chat, Topic.Offer]);
 
     final token = await _messaging.getToken();
     print("FCM Token: $token");
@@ -48,7 +52,9 @@ class NotificationService {
         >()
         ?.createNotificationChannel(channel);
 
-    const initializationSettigsAndroid = AndroidInitializationSettings(_notificationIcon);
+    const initializationSettigsAndroid = AndroidInitializationSettings(
+      _notificationIcon,
+    );
 
     final initializationSettings = InitializationSettings(
       android: initializationSettigsAndroid,
@@ -56,9 +62,7 @@ class NotificationService {
 
     await _localNotifications.initialize(
       initializationSettings,
-      onDidReceiveNotificationResponse: (details) {
-        
-      }
+      onDidReceiveNotificationResponse: (details) {},
     );
 
     _isFlutterLocalNotificationInitialized = true;
@@ -76,14 +80,26 @@ class NotificationService {
           android: AndroidNotificationDetails(
             _highImportanceChannelId,
             _highImportanceChannelName,
-            channelDescription: "This channel is used for imprtant notifications.",
+            channelDescription:
+                "This channel is used for imprtant notifications.",
             importance: Importance.high,
             priority: Priority.high,
-            icon: _notificationIcon
-            )
+            icon: _notificationIcon,
+          ),
         ),
         payload: message.data.toString(),
       );
+    }
+  }
+
+  Future<void> subsribeTopic(Topic topic) async {
+    if (_subscribedTopics.contains(topic)) return;
+    await _messaging.subscribeToTopic(topic.Code);
+  }
+
+  Future<void> _subsribeTopics(List<Topic> topics) async {
+    for (var topic in topics) {
+      await subsribeTopic(topic);
     }
   }
 
@@ -121,7 +137,14 @@ class NotificationService {
     if (message.data['type'] == 'chat') {
       // open chat screen
     }
-
-
   }
+}
+
+enum Topic {
+  Offer(Code: "Offer"),
+  Chat(Code: "Chat");
+
+  const Topic({required this.Code});
+
+  final String Code;
 }
