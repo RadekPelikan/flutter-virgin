@@ -1,0 +1,6 @@
+@FirebaseFlutter.Service_HostAddress = http://localhost:5135
+
+GET {{FirebaseFlutter.Service_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

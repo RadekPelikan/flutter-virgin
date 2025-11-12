@@ -1,0 +1,12 @@
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/bin/Debug/net10.0/FirebaseFlutter.App.deps.json
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/bin/Debug/net10.0/FirebaseFlutter.App.dll
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/bin/Debug/net10.0/FirebaseFlutter.App.pdb
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/obj/Debug/net10.0/FirebaseFlutter.App.GeneratedMSBuildEditorConfig.editorconfig
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/obj/Debug/net10.0/FirebaseFlutter.App.AssemblyInfoInputs.cache
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/obj/Debug/net10.0/FirebaseFlutter.App.AssemblyInfo.cs
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/obj/Debug/net10.0/FirebaseFlutter.App.csproj.CoreCompileInputs.cache
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/obj/Debug/net10.0/FirebaseFlutter.App.sourcelink.json
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/obj/Debug/net10.0/FirebaseFlutter.App.dll
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/obj/Debug/net10.0/refint/FirebaseFlutter.App.dll
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/obj/Debug/net10.0/FirebaseFlutter.App.pdb
+/home/rpelikan/dev/repos/flutterVirgin/src/projects/FirebaseFlutter/FirebaseFlutter.App/obj/Debug/net10.0/ref/FirebaseFlutter.App.dll
